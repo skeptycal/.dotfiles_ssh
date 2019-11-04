@@ -8,7 +8,7 @@ BASH_SOURCE=${BASH_SOURCE:=$0} # to ease the transition to zsh
     DESC=${DESC:='Script Resources for ssm on macOS'}
     USAGE="source ${NAME:-} [help|test|usage|version]"
 
-# source $(which ssm_usage)
+source $(which ssm_usage)
 # SET_DEBUG='1' # set to 1 for debug and verbose testing
 # [[ $ZSH_EVAL_CONTEXT =~ :file$ ]] && is_sourced=1 || is_sourced=0
 
