@@ -1,0 +1,169 @@
+#!/usr/bin/env false bash
+# -*- coding: utf-8 -*-
+# cannot be run directly; called from .bash_profile or .bashrc
+BASH_SOURCE=${(%):-%N} # to ease the transition to zsh
+# *#############################################################################
+# ${PATH//:/\\n}
+# ${PATH// /}
+# *## PYTHONPATH ###########################################################
+PYTHONPATH="\
+        /usr/local/bin/python:\
+        /usr/bin/python:\
+        ./:\
+        "
+
+PYTHONPATH="${PYTHONPATH// /}"
+export PYTHONPATH
+
+MANPATH="/usr/share/man:\
+        "
+
+MANPATH="${MANPATH// /}"
+export MANPATH
+
+# *## shims ################################################################
+# node v8.16.0
+# $HOME/node-v8.16.0-darwin-x64/bin:\
+
+# python 2.7.16 (from brew install python@2)
+# /usr/local/bin/python2
+# /usr/local/bin/pip2
+# * move up /usr/local/bin ... python is symlinked to python2 already
+
+# *## path #################################################################
+# openssl is keg-only, which means it was not symlinked into /usr/local,
+# because Apple has deprecated use of OpenSSL in favor of its own TLS and
+# crypto libraries.
+# export PATH="/usr/local/opt/openssl/bin:$PATH"
+# A CA file has been bootstrapped using certificates from the SystemRoots
+# keychain. To add additional certificates (e.g. the certificates added in
+# the System keychain), place .pem files in
+#   /usr/local/etc/openssl/certs
+#
+# and run
+#   /usr/local/opt/openssl/bin/c_rehash
+PATH="\
+    $HOME/bin:\
+    /usr/local/bin:\
+    $HOME/.dotfiles:\
+    /usr/bin:\
+    /bin:\
+    /usr/local:\
+    /usr/sbin:\
+    /sbin:\
+    /usr/libexec:\
+    $HOME/.dotfiles/git-achievements:\
+    $PWD:\
+    "
+
+PATH="${PATH// /}"
+export PATH
+
+# ! If needed, add RVM to PATH for scripting. Make sure this is the\
+# ! last PATH variable change.   $HOME/.rvm/bin:\
+
+checkpath () { 
+    # check path-type arrays - different loops for BASH and ZSH
+    # if directories exist, they are color coded blue
+    # if not, they are color coded orange
+    # if elements in array are not directories, the colors may be random,
+    #    but most will be orange unless the odd element matches a path.
+    SHELL_PROGRAM=${SHELL##*/}
+	OLD_IFS=$IFS
+    IFS=$(echo -e ",: \t\n") # set IFS to all common delimiters 
+    VARS="$1"
+    VARLIST=( $VARS )
+    if [ $SHELL_PROGRAM = 'zsh' ]; then # this works with ZSH
+        for var in "${(@)VARLIST}"; do
+            [[ -d "$var" ]] && blue $var || attn $var
+        done
+    else
+        for i in "${!VARLIST[@]}"; do # this works with BASH
+            var="${VARLIST[i]}"
+            [[ -d "$var" ]] && blue $var || attn $var
+        done
+    fi
+	IFS=$OLD_IFS
+}
+
+echo "Sunday evening, put out the garbage cans." | mail -s "Garbage cans out" skeptycal@gmail.com
+
+
+function _run_debug_paths() {
+    # list current versions of common utilities
+    ce "Script source:$MAIN $BASH_SOURCE$RESET"
+    green "\$PATH is set. Type <path> or <list [\$PATHVAR]> to list elements."
+    # ${PATH//:/\\n}
+    # ${PATH// /}
+    # list() { echo -e ${1//:/\\n}; }
+}
+
+# *############################################################################
+# * Bam ... make the magic
+function _main_paths() {
+    [[ $SET_DEBUG == '1' ]] && _run_debug_paths
+}
+
+_main_paths "$@"
+###############################################################################
+# Notes:
+
+# This is what was there before I added mine (6/27/19)
+# /usr/local/bin
+# /usr/bin
+# /bin
+# /usr/sbin
+# /sbin
+# /Library/TeX/texbin
+# /usr/local/share/dotnet
+# /opt/X11/bin
+# ~/.dotnet/tools
+# /Library/Frameworks/Mono.framework/Versions/Current/Commands
+# /Applications/Postgres.app/Contents/Versions/latest/bin
+# /Applications/Xamarin Workbooks.app/Contents/SharedSupport/path-bin
+# $HOME/perl5/bin
+
+#   ! This should be either first or last ... it is up for debate
+#   I put mine first and curate what I place in here ...
+#   I put my ~/.dotfiles directory at the end of the path ... it is handy ...
+#   I put my /usr/libexec directory at the end ... sometimes handy
+#        * $HOME/bin:\ (and several utilities directories)
+
+#   Path entries that should be before all others, if possible:
+#
+#     1. gnubin - GNU replacements for macOS shell functions
+#        * /usr/local/opt/coreutils/libexec/gnubin:\
+
+#   Path entries that should be first - ish (before system paths):
+#     2. Programming languages
+#        * .dotnet
+#        * Python / pip / pipenv / virtualenv
+#        * anaconda / conda
+#        * PHP (path to brew version! *probably* /usr/local/bin/php)
+#        * Ruby / gems
+#        * Go
+#        * other languages or priority (non-Apple) applications
+#        * /usr/local/bin ... this seems to be the devault Brew
+#        *    symlink home and *should* catch everything else
+#        * especially programs that update an apple functionality!
+
+#     3. PHP tools: If you use composer, phpunit, php_codesniffer, etc
+#        * $HOME/.composer/vendor/bin:\
+#        * $HOME/.composer/vendor/squizlabs/php_codesniffer/bin:\
+#     3a.
+#        * httpd seems to have issues with Mojave
+#        * use path to brew version: /usr/local/bin/httpd
+#    Path entries that should be after specific app paths
+#     4. System bin paths (Homebrew compatible - 'local' first)
+#        * /usr/local/bin:\
+#        * /usr/bin:\
+#        * /bin:\
+
+#     5. opt's and lib's (only if needed - I symlink to 'bins' instead)
+#        * /usr/local/opt:/opt/local/sbin:\
+#        * /usr/local:\
+
+#     6. System sbin paths
+#        * /usr/local/sbin:\
+#        * /usr/sbin:\
+###############################################################################
