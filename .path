@@ -1,7 +1,7 @@
 #!/usr/bin/env false bash
 # -*- coding: utf-8 -*-
 # cannot be run directly; called from .bash_profile or .bashrc
-BASH_SOURCE=${(%):-%N} # to ease the transition to zsh
+# BASH_SOURCE=${(%):-%N} # to ease the transition to zsh
 # *#############################################################################
 # ${PATH//:/\\n}
 # ${PATH// /}
@@ -49,15 +49,27 @@ PATH="\
     /usr/bin:\
     /bin:\
     /usr/local:\
+    /usr/local/sbin:\
     /usr/sbin:\
     /sbin:\
-    /usr/libexec:\
     $HOME/.dotfiles/git-achievements:\
     $PWD:\
     "
 
 PATH="${PATH// /}"
 export PATH
+
+/home/w8g9bqo5ywtj/bin
+/usr/local/bin
+/home/w8g9bqo5ywtj/.dotfiles
+/usr/local/lib/node_modules
+/usr/bin
+/bin
+/usr/local
+/usr/local/sbin
+/usr/sbin
+/sbin
+/home/w8g9bqo5ywtj/bin
 
 # ! If needed, add RVM to PATH for scripting. Make sure this is the\
 # ! last PATH variable change.   $HOME/.rvm/bin:\
