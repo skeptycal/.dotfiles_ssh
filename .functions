@@ -480,7 +480,7 @@ function _main_functions() {
     # echo "Travis test: $TRAVIS_TOKEN"
     # travis login --github-token "$TRAVIS_TOKEN"
 
-    [ $SET_DEBUG == '1' ] && _run_debug_functions
+    [ $SET_DEBUG == 1 ] && _run_debug_functions
     }
 
 _main_functions "$@"

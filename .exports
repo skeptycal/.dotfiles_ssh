@@ -7,18 +7,12 @@
 export LANG='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
 export CGO_ENABLED=1
-# export LOCAL_IP="$(ipconfig getifaddr en0)"
 
 # keys
-# source "${HOME}/.dotfiles/.homebrew_github_private.sh"
-# source "${HOME}/.dotfiles/.travis_token_private.sh"
-export SH_KEY_PATH="${HOME}/.ssh/rsa_id"
+export SH_KEY_PATH="${HOME}/.ssh/"
 
 # utilities
-# export AZURE_WORKING_DIR="${HOME}/myagent"
-# export HOMEBREW_PREFIX="$(brew --prefix)"
-# export MAGICK_HOME="/usr/local/Cellar/imagemagick/7.0.8-68"
-[[ -n $SSH_CONNECTION ]] && export EDITOR='nano' || export EDITOR='nano'
+[ -n $SSH_CONNECTION ] && export EDITOR='nano' || export EDITOR='nano'
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
@@ -26,9 +20,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # System
-# export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
-# LDFLAGS="-L/usr/local/opt/zlib/lib"
-# CPPFLAGS="-I/usr/local/opt/zlib/include"
 export ARCHFLAGS="-arch x86_64"
 export HISTSIZE=32768
 export HISTFILESIZE="${HISTSIZE}"
@@ -45,53 +36,10 @@ export PROJECT_HOME="${HOME}/Documents/coding/"
 [[ $(which pyenv >/dev/null) ]] && eval "$(pyenv init -)"
 [[ $(which pyenv-virtualenv-init >/dev/null) ]] && eval "$(pyenv virtualenv-init -)"
 
-# emsdk
-# export EMSDK="/Users/skeptycal/emsdk"
-# export EM_CONFIG="/Users/skeptycal/.emscripten"
-# export EMSDK_NODE="/Users/skeptycal/emsdk/node/12.9.1_64bit/bin/node"
-
-# pip zsh completion start
-# function _pip_completion() {
-#     local words cword
-#     read -Ac words
-#     read -cn cword
-#     reply=($(COMP_WORDS="$words[*]" \
-#         COMP_CWORD=$((cword - 1)) \
-#         PIP_AUTO_COMPLETE=1 $words[1]))
-# }
-# compctl -K _pip_completion pip
-
-# Java
-# JAVA_HOME="$(/usr/libexec/java_home)"
-# M2_HOME="/usr/share/apache-maven-3.6.0"
-
 # Node
 export NODE_REPL_HISTORY="${HOME}/.node_history"
 export NODE_REPL_HISTORY_SIZE=32768
 export NODE_REPL_MODE='sloppy'
-
-# Perl
-# export PERL_MM_OPT="INSTALL_BASE=${HOME}/perl5"
-# eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
-
-# Go
-# export GOPATH="$HOME/go"
-
-# HOMEBREW_PREFIX=$(brew --prefix)
-# if type brew &>/dev/null; then
-#     if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
-#         source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-#     else
-#         for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
-#             [[ -r "$COMPLETION" ]] && source "$COMPLETION"
-#         done
-#     fi
-# fi
-# Heroku autocomplete setup
-# heroku autocomplete --refresh-cache # one time use after above is loaded
-
-# Postgres setup
-# export DATABASE_URL="postgres://$(whoami)"
 
 ############################################################################
 # Enable some Bash 4 features when possible:
@@ -100,9 +48,9 @@ export NODE_REPL_MODE='sloppy'
 # Autocorrect typos in path names when using `cd` : shopt -s cdspell;
 # Autocd, e.g. `**/qux` will enter `./foo/bar/baz/qux`
 # Recursive globbing, e.g. `echo **/*.txt`
-# for option in nocaseglob histappend cdspell autocd globstar; do
-#     shopt -s "$option" &>/dev/null
-# done
+for option in nocaseglob histappend cdspell autocd globstar; do
+    shopt -s "$option" &>/dev/null
+done
 
 run_debug_exports() {
     # list current versions of common utilities
@@ -111,7 +59,7 @@ run_debug_exports() {
     # green "\$LOCAL_IP is set to and exported as $LOCAL_IP."
 }
 main_exports() {
-    [[ $DEBUG == '1' ]] && run_debug_exports
+    [ $DEBUG == '1' ] && run_debug_exports
 }
 
-[[ $SET_DEBUG == '1' ]] && main_exports
+[ $SET_DEBUG == '1' ] && main_exports

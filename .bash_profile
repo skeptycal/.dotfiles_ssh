@@ -53,5 +53,5 @@ source "${SOURCE_PATH}/.exports"
 source "${SOURCE_PATH}/.theme"
 source "${SOURCE_PATH}/.functions"
 source "${SOURCE_PATH}/.extra"
-# source "${SOURCE_PATH}/.git_alias" # already included
+source "${SOURCE_PATH}/.git_alias" # already included
 

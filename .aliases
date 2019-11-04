@@ -14,6 +14,8 @@ GITHUB="https://www.github.com/skeptycal"
 #? ############################################################################
 # [[ $SET_DEBUG ]] && SET_DEBUG=0 # set to 1 for verbose testing
 
+# *########################################################################
+# TODO works in progress
 function git_com() {
     if [ -n "$1" ] && [ $(git status) ]; then
         gaa >>/dev/null
@@ -22,19 +24,11 @@ function git_com() {
     fi
 }
 
-# *########################################################################
-# TODO works in progress
 alias pret='prettier * --write --insert-pragma'
 # alias pwdcopy='pwd | pbcopy'
 
-alias com="git_com $@"
 alias git="git-achievements"
-alias pm="pygmentize"
-
-# Use NeoVim if available
-if type "nvim" >/dev/null; then
-  alias vim=nvim
-fi
+alias com="git_com $@"
 
 # *########################################################################
 # repo setup
@@ -70,9 +64,7 @@ mkd() {
 alias cdc="cd $HOME/Documents/coding"
 alias cdw="cd $HOME/Documents/work"
 alias cdd="cd $HOME/public_html"
-# alias cdb="cd $HOME/Dropbox"
 alias dl="cd $HOME/Downloads"
-# alias dt="cd $HOME/Desktop"
 alias ftree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias filetree="ls -R | grep ':$' | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'"
 
@@ -95,10 +87,8 @@ alias now='date +"%T"'
 alias nowdate='date +"%m-%d-%Y"'
 alias week="date +%V"
 alias mount="mount | column -t"
-# alias allopen="sudo lsof -i -P | grep"
 alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
-# alias plistbuddy="/usr/libexec/PlistBuddy"
 command -v grunt >/dev/null && alias grunt="grunt --stack"
 command -v hd >/dev/null || alias hd="hexdump -C"
 command -v md5sum >/dev/null || alias md5sum="md5"
@@ -124,7 +114,6 @@ alias lw="ls -hF --group-directories-first ${colorflag}"       # detailed wide
 
 # *###########################################################################
 # change directories
-alias -- -="cd -"
 alias -- -='cd -'
 alias .....="cd ../../../.."
 alias ....="cd ../../.."
@@ -147,7 +136,7 @@ function run_debug_aliases() {
 }
 
 function main_aliases() {
-    [[ $SET_DEBUG == 1 ]] && run_debug_aliases
+    [ $SET_DEBUG == 1 ] && run_debug_aliases
 }
 
-[[ $SET_DEBUG == '1' ]] && main_aliases
+[ $SET_DEBUG == 1 ] && main_aliases
