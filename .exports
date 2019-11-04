@@ -114,4 +114,4 @@ main_exports() {
     [[ $DEBUG == '1' ]] && run_debug_exports
 }
 
-main_exports
+[[ $SET_DEBUG == '1' ]] && main_exports

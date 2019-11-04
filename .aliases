@@ -150,4 +150,4 @@ function main_aliases() {
     [[ $SET_DEBUG == 1 ]] && run_debug_aliases
 }
 
-main_aliases
+[[ $SET_DEBUG == '1' ]] && main_aliases

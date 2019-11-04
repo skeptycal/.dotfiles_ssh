@@ -59,18 +59,6 @@ PATH="\
 PATH="${PATH// /}"
 export PATH
 
-/home/w8g9bqo5ywtj/bin
-/usr/local/bin
-/home/w8g9bqo5ywtj/.dotfiles
-/usr/local/lib/node_modules
-/usr/bin
-/bin
-/usr/local
-/usr/local/sbin
-/usr/sbin
-/sbin
-/home/w8g9bqo5ywtj/bin
-
 # ! If needed, add RVM to PATH for scripting. Make sure this is the\
 # ! last PATH variable change.   $HOME/.rvm/bin:\
 
@@ -116,7 +104,7 @@ function _main_paths() {
     [[ $SET_DEBUG == '1' ]] && _run_debug_paths
 }
 
-_main_paths "$@"
+[[ $SET_DEBUG == '1' ]] && _main_paths "$@"
 ###############################################################################
 # Notes:
 
