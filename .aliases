@@ -15,7 +15,7 @@ GITHUB="https://www.github.com/skeptycal"
 # [[ $SET_DEBUG ]] && SET_DEBUG=0 # set to 1 for verbose testing
 
 function git_com() {
-    if [[ -n "$1" ]] && [[ gst]]; then
+    if [ -n "$1" ] && [ $(git status) ]; then
         gaa >>/dev/null
         gc -S -m "$1"
         gp

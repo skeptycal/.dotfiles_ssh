@@ -62,7 +62,7 @@ export PROJECT_HOME="${HOME}/Documents/coding/"
 # compctl -K _pip_completion pip
 
 # Java
-JAVA_HOME="$(/usr/libexec/java_home)"
+# JAVA_HOME="$(/usr/libexec/java_home)"
 # M2_HOME="/usr/share/apache-maven-3.6.0"
 
 # Node
