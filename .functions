@@ -346,7 +346,7 @@ function datelog() {
     $("$@") | tee -a "$file_name"
     }
 
-function mkd() { mkdir -p "$@" && cd "$_" || return }
+function mkd() { mkdir -p "$@" && cd "$_" || return; }
 function targz() {
     local tmpFile="${*%/}.tar"
     tar -cvf "${tmpFile}" --exclude=".DS_Store" "${@}" || return 1
@@ -460,9 +460,9 @@ function getcertnames() {
     fi
     }
 
-function tre() { tree -axC -I '.git|node_modules|bower_components' --dirsfirst "$@" -- | less -FRNX }
-tt() { tree -L 1 -- "$@" }
-function tree_html() { tree -ahlsAFRHD --prune --du --si --dirsfirst >tree.html }
+function tre() { tree -axC -I '.git|node_modules|bower_components' --dirsfirst "$@" -- | less -FRNX; }
+tt() { tree -L 1 -- "$@"; }
+function tree_html() { tree -ahlsAFRHD --prune --du --si --dirsfirst >tree.html; }
 function _run_debug_functions() {
     db_script_source "Functions test"
     warn $NAME
@@ -471,9 +471,7 @@ function _run_debug_functions() {
 function _main_functions() {
     # use git diff if available
     if [[ "$(hash git &>/dev/null)" -eq 0 ]]; then
-        function diff() {
-            git diff --no-index --color-words "$@"
-        }
+        function diff() { git diff --no-index --color-words "$@"; }
     fi
     br
     green "Use <versions> to display shell, language, and utility versions. (Use <checkpath> to check system \$PATH.)"
@@ -482,7 +480,7 @@ function _main_functions() {
     # echo "Travis test: $TRAVIS_TOKEN"
     # travis login --github-token "$TRAVIS_TOKEN"
 
-    [[ $SET_DEBUG == '1' ]] && _run_debug_functions
+    [ $SET_DEBUG == '1' ] && _run_debug_functions
     }
 
 _main_functions "$@"
